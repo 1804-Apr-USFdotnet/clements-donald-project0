@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RestrauntReviews.Library")]
+[assembly: AssemblyTitle("RevViews.BLL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP Inc.")]
-[assembly: AssemblyProduct("RestrauntReviews.Library")]
+[assembly: AssemblyProduct("RevViews.BLL")]
 [assembly: AssemblyCopyright("Copyright © HP Inc. 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("25aff45d-5d01-41cb-a953-f5bf8dd14daa")]
+[assembly: Guid("3fb29a6e-bf40-43a6-aa3f-5e8d05b67cb0")]
 
 // Version information for an assembly consists of the following four values:
 //
