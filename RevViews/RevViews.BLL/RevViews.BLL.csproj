@@ -51,7 +51,6 @@
     <Compile Include="IRestaurantRepository.cs" />
     <Compile Include="IReviewRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="LittleWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

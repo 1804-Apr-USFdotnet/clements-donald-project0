@@ -30,6 +30,17 @@
           <Property Name="Body" Type="nvarchar(max)" />
           <Property Name="ReviewedOn" Type="date" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RevViewsDB.dbo.ViewTopThree' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewTopThree">
+          <Key>
+            <PropertyRef Name="RestrauntID" />
+            <PropertyRef Name="RestaurantName" />
+          </Key>
+          <Property Name="RestrauntID" Type="int" Nullable="false" />
+          <Property Name="RestaurantName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="AvgRating" Type="decimal" Precision="8" Scale="6" />
+        </EntityType>
         <Association Name="FK_ReviewRestrauntID_RestrauntsRestrauntID">
           <End Role="Restraunts" Type="Self.Restraunts" Multiplicity="1" />
           <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
@@ -46,6 +57,13 @@
         <EntityContainer Name="RevViewsDBModelStoreContainer">
           <EntitySet Name="Restraunts" EntityType="Self.Restraunts" Schema="Business" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="Business" store:Type="Tables" />
+          <EntitySet Name="ViewTopThree" EntityType="Self.ViewTopThree" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTopThree].[RestrauntID] AS [RestrauntID], 
+    [ViewTopThree].[RestaurantName] AS [RestaurantName], 
+    [ViewTopThree].[AvgRating] AS [AvgRating]
+    FROM [dbo].[ViewTopThree] AS [ViewTopThree]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_ReviewRestrauntID_RestrauntsRestrauntID" Association="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID">
             <End Role="Restraunts" EntitySet="Restraunts" />
             <End Role="Reviews" EntitySet="Reviews" />
@@ -101,7 +119,23 @@
             <End Role="Restraunts" EntitySet="Restraunts" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
+          <FunctionImport Name="AveRating" ReturnType="Collection(RevViewsDBModel.AveRating_Result)" />
+          <EntitySet Name="ViewTopThrees" EntityType="RevViewsDBModel.ViewTopThree" />
         </EntityContainer>
+        <ComplexType Name="AveRating_Result">
+          <Property Type="Int32" Name="RestrauntID" Nullable="false" />
+          <Property Type="String" Name="RestaurantName" Nullable="false" MaxLength="250" />
+          <Property Type="Decimal" Name="AvgRating" Nullable="true" Precision="8" Scale="6" />
+        </ComplexType>
+        <EntityType Name="ViewTopThree">
+          <Key>
+            <PropertyRef Name="RestrauntID" />
+            <PropertyRef Name="RestaurantName" />
+          </Key>
+          <Property Name="RestrauntID" Type="Int32" Nullable="false" />
+          <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AvgRating" Type="Decimal" Precision="8" Scale="6" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -132,6 +166,24 @@
                 <ScalarProperty Name="Headline" ColumnName="Headline" />
                 <ScalarProperty Name="Body" ColumnName="Body" />
                 <ScalarProperty Name="ReviewedOn" ColumnName="ReviewedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AveRating" FunctionName="RevViewsDBModel.Store.AveRating">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RevViewsDBModel.AveRating_Result">
+                <ScalarProperty Name="RestrauntID" ColumnName="RestrauntID" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ViewTopThrees">
+            <EntityTypeMapping TypeName="RevViewsDBModel.ViewTopThree">
+              <MappingFragment StoreEntitySet="ViewTopThree">
+                <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="RestrauntID" ColumnName="RestrauntID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

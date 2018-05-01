@@ -20,7 +20,6 @@ namespace RevViews.Models
         string City { get; set; }
         string StateCode { get; set; }
         string PostalCode { get; set; }
-        string Phone { get; set; }
     }
     public interface IReview
     {

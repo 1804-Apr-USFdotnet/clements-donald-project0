@@ -12,6 +12,8 @@ namespace RevViews.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class RevViewsDBEntities : DbContext
     {
@@ -27,5 +29,11 @@ namespace RevViews.Models
     
         public virtual DbSet<Restraunt> Restraunts { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<ViewTopThree> ViewTopThrees { get; set; }
+    
+        public virtual ObjectResult<AveRating_Result> AveRating()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AveRating_Result>("AveRating");
+        }
     }
 }

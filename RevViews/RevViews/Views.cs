@@ -96,8 +96,11 @@ namespace RevViews
         {
             Clear();
             WriteLine("Displaying Top3View");
+
             Write("Enter number for more details: ");
             ReadLine();
         }
+
+
     }
 }

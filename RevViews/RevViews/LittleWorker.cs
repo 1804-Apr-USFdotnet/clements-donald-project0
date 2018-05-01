@@ -29,12 +29,11 @@ namespace RevViews
         public static IEnumerable<Restraunt> Search(string input)
         {
             UnitOfWork unitOfWork = new UnitOfWork(new RevViewsContext());
-            var results = unitOfWork.Restaurants.GetAll().Where(o => o.RestaurantName.Contains(input));
+            var results = unitOfWork.Restaurants.GetAll().Where(o => o.RestaurantName.ToUpper().Contains(input.ToUpper()));
             unitOfWork.Dispose();
             return results;
 
         }
-
 
     }
 }

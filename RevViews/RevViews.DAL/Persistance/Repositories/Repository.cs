@@ -7,11 +7,10 @@ using RevViews.BLL;
 
 namespace RevViews.DAL.Persistance.Repositories
 {
-
     public class Repository<TEnt> : IRepository<TEnt> where TEnt : class
     {
-        protected readonly DbContext Context;
         private readonly DbSet<TEnt> _ents;
+        protected readonly DbContext Context;
 
         public Repository(DbContext context)
         {
@@ -64,4 +63,3 @@ namespace RevViews.DAL.Persistance.Repositories
         }
     }
 }
-
