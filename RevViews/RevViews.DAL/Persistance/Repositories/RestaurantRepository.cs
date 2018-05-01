@@ -26,9 +26,21 @@ namespace RevViews.DAL.Persistance.Repositories
             //var aveR = new RevViewsDBEntities().AveRating().OrderByDescending(o=>o.AvgRating).Take(amount).ToList();
             //var q = RevViewsContext.Restraunts.Where( o=> o.RestrauntID in aveR)
             //return
-           List<ViewTopThree> t3 = new RevViewsDBEntities().ViewTopThrees.ToList();
-                    
-        throw new NotImplementedException();
+           
+            try
+            {
+                List<ViewTopThree> t3 = new RevViewsDBEntities().ViewTopThrees.ToList();
+                var a3 = t3.Select(o => o.RestrauntID).ToArray();
+                Console.WriteLine(a3.ToString());
+                Console.ReadLine();
+                throw new NotImplementedException();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+  
         }
     }
 }

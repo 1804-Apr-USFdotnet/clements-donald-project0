@@ -9,12 +9,13 @@ using RevViews;
 using RevViews.BLL;
 using RevViews.DAL;
 using RevViews.DAL.Persistance;
+using RevViews.DAL.Persistance.Repositories;
 using RevViews.Models;
 
 namespace RevViews
 
 {
-    public class LittleWorker
+    public static class LittleWorker
     {
 
         public static IEnumerable<Restraunt> ShowAll()
@@ -33,6 +34,22 @@ namespace RevViews
             unitOfWork.Dispose();
             return results;
 
+        }
+
+        public static void ViewTop()
+        {
+            List<ViewTopThree> t3 = new RevViewsDBEntities().ViewTopThrees.ToList();
+            for (var index = 0; index < t3.Count; index++)
+            {
+                var e = t3[index];
+
+                Console.WriteLine((index+1) + ":" + e.RestaurantName + " has rating of " + Math.Round((double)e.AvgRating, 1));
+            }
+
+            Console.WriteLine();
+            Console.Write("Please make a selection for further information:  ");
+            string input= Console.ReadLine();
+            int.TryParse(input, out int parsed);
         }
 
     }

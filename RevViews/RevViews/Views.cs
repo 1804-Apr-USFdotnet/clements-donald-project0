@@ -96,7 +96,7 @@ namespace RevViews
         {
             Clear();
             WriteLine("Displaying Top3View");
-
+            LittleWorker.ViewTop();
             Write("Enter number for more details: ");
             ReadLine();
         }
