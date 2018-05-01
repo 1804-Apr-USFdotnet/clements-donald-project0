@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static System.Console;
-using RevViews.BLL;
-using RevViews.Models;
 
 namespace RevViews
 {
@@ -13,12 +8,11 @@ namespace RevViews
     {
         internal static void MainMenuView()
         {
-            string keyInput = "";
+            int nav = -1;
 
             do
             {
                 Clear();
-                WriteLine("Your selection was: " + keyInput + "\n");
 
                 WriteLine("Main Menu:");
                 WriteLine("  Menu Options:");
@@ -26,56 +20,49 @@ namespace RevViews
                 WriteLine("    2: Browse all restaurants.");
                 WriteLine("    3: Search restaurants.");
 
-                WriteLine("\nPress x to exit application:\n");
-                keyInput = ReadKey().Key.ToString().ToUpper();
-                keyInput = MainOptionsViewRouter(keyInput);
+                WriteLine("\nEnter -1 to exit application:\n");
+                nav = MainOptionsViewRouter(Nav(3));
 
-            } while (keyInput != "X");
+            } while (nav != -1);
         }
 
-        private static string MainOptionsViewRouter(string keyInput)
+        private static int MainOptionsViewRouter(int nav)
         {
-            string result = keyInput;
-            switch (result)
+            switch (nav)
             {
-                case "D1":
+                case 1:
                     Top3View();
-                    result = "1";
                     break;
-                case "D2":
+                case 2:
                     BrowseAllView();
-                    result = "2";
                     break;
-                case "D3":
-                    SearchView();
-                    result = "3";
-                    break;
-                case "X":
-                    result = "X";
-                    break;
-                default:
-                    result = "INVALID";
+                case 3:
+                    SearchView();;
                     break;
             }
 
-            return result;
+            return nav;
         }
 
         private static void SearchView()
         {
             Clear();
-            WriteLine("Displaying SearchView");
+            WriteLine("SearchView");
             Write("Enter Search: ");
-            string input = ReadLine();
-            var results = LittleWorker.Search(input);
+            string userInput = ReadLine();
+            var results = LittleWorker.Search(userInput).ToList();
             Clear();
-            foreach (var restraunt in results)
-            {
-                Console.WriteLine(restraunt.RestrauntID + ": " + restraunt.RestaurantName);
-            }
-            Write("Enter number for more details: ");
-            ReadLine();
+            WriteLine("SearchView");
+            WriteLine("  Results");
 
+            for (var index = 0; index < results.Count(); index++)
+            {
+                var e = results[index];
+
+                Console.WriteLine("    "+(index+1)+ ": " + e.RestaurantName);
+            }
+
+            Nav(results.Count());
         }
 
         private static void BrowseAllView()
@@ -88,8 +75,8 @@ namespace RevViews
             }
                 
             
-            Write("Enter number for more details: ");
-            int input = Int32.Parse(ReadLine());
+            
+            var nav = Nav();
         }
 
         private static void Top3View()
@@ -97,10 +84,33 @@ namespace RevViews
             Clear();
             WriteLine("Displaying Top3View");
             LittleWorker.ViewTop();
-            Write("Enter number for more details: ");
-            ReadLine();
+
         }
 
+        public static int Nav()
+        {
+            int.TryParse(ReadLine(), out int nav);
+            return nav;
+        }
 
+        private static int Nav(int upperLimit)
+        {
+            Write("Enter selection: ");
+            int.TryParse(ReadLine(), out int nav);
+            do
+            {
+                if (nav <= upperLimit && nav >= -1)
+                {
+                    return nav;
+                }
+                else
+                {
+                    WriteLine("INVALID INPUT! Current valid options are intergers between -1 and " + upperLimit);
+                    int.TryParse(ReadLine(), out int newNav);
+                    nav = newNav;
+                }
+            } while (!(nav <= upperLimit && nav >= -1));
+            return 0;
+        }
     }
 }
