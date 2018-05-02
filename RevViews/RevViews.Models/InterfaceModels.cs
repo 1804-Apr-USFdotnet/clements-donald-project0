@@ -5,12 +5,13 @@ namespace RevViews.Models
 {
     public interface IRestrauntEntity : IAddress
     {
-            int RestrauntID { get; set; }
-            string RestaurantName { get; set; }
-            string Phone { get; set; }
-            string Website { get; set; }
-            ICollection<Review> Reviews { get; set; }
-     }
+        int RestrauntID { get; set; }
+        string RestaurantName { get; set; }
+        string Phone { get; set; }
+        string Website { get; set; }
+        ICollection<Review> Reviews { get; set; }
+    }
+
     public interface IAddress
     {
         string AddressLineOne { get; set; }
@@ -18,6 +19,7 @@ namespace RevViews.Models
         string StateCode { get; set; }
         string PostalCode { get; set; }
     }
+
     public interface IReview
     {
         int ReviewID { get; set; }

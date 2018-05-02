@@ -14,8 +14,8 @@ namespace RevViews.DAL.Persistance
             Restaurants = new RestaurantRepository(_context);
         }
 
-        public IReviewRepository Reviews{ get; private set; }
-        public IRestaurantRepository Restaurants { get; private set; }
+        public IReviewRepository Reviews { get; }
+        public IRestaurantRepository Restaurants { get; }
 
         public int Complete()
         {

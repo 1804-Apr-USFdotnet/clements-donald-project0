@@ -1,12 +1,10 @@
 ﻿namespace RevViews
 {
-    class RevViewsApp
+    internal class RevViewsApp
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Views.MainMenuView();
         }
-
- 
     }
 }

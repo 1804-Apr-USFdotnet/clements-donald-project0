@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RevViewsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="RevViewsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012"
+              Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Restraunts">
           <Key>
             <PropertyRef Name="RestrauntID" />
@@ -53,39 +57,50 @@ warning 6002: The table/view 'RevViewsDB.dbo.ViewTopThree' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="AveRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Business" />
+        <Function Name="AveRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false"
+                  ParameterTypeSemantics="AllowImplicitConversion" Schema="Business" />
         <EntityContainer Name="RevViewsDBModelStoreContainer">
           <EntitySet Name="Restraunts" EntityType="Self.Restraunts" Schema="Business" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="Business" store:Type="Tables" />
           <EntitySet Name="ViewTopThree" EntityType="Self.ViewTopThree" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ViewTopThree].[RestrauntID] AS [RestrauntID], 
-    [ViewTopThree].[RestaurantName] AS [RestaurantName], 
-    [ViewTopThree].[AvgRating] AS [AvgRating]
-    FROM [dbo].[ViewTopThree] AS [ViewTopThree]</DefiningQuery>
+            <DefiningQuery>
+              SELECT
+              [ViewTopThree].[RestrauntID] AS [RestrauntID],
+              [ViewTopThree].[RestaurantName] AS [RestaurantName],
+              [ViewTopThree].[AvgRating] AS [AvgRating]
+              FROM [dbo].[ViewTopThree] AS [ViewTopThree]
+            </DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_ReviewRestrauntID_RestrauntsRestrauntID" Association="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID">
+          <AssociationSet Name="FK_ReviewRestrauntID_RestrauntsRestrauntID"
+                          Association="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID">
             <End Role="Restraunts" EntitySet="Restraunts" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="RevViewsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="RevViewsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false"
+              xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Restraunt">
           <Key>
             <PropertyRef Name="RestrauntID" />
           </Key>
           <Property Name="RestrauntID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RestaurantName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AddressLineOne" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RestaurantName" Type="String" MaxLength="250" FixedLength="false" Unicode="true"
+                    Nullable="false" />
+          <Property Name="AddressLineOne" Type="String" MaxLength="250" FixedLength="false" Unicode="true"
+                    Nullable="false" />
           <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID" FromRole="Restraunts" ToRole="Reviews" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID"
+                              FromRole="Restraunts" ToRole="Reviews" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -98,7 +113,8 @@ warning 6002: The table/view 'RevViewsDB.dbo.ViewTopThree' does not have a prima
           <Property Name="Headline" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ReviewedOn" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Restraunt" Relationship="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID" FromRole="Reviews" ToRole="Restraunts" />
+          <NavigationProperty Name="Restraunt" Relationship="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID"
+                              FromRole="Reviews" ToRole="Restraunts" />
         </EntityType>
         <Association Name="FK_ReviewRestrauntID_RestrauntsRestrauntID">
           <End Role="Restraunts" Type="Self.Restraunt" Multiplicity="1" />
@@ -115,7 +131,8 @@ warning 6002: The table/view 'RevViewsDB.dbo.ViewTopThree' does not have a prima
         <EntityContainer Name="RevViewsDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Restraunts" EntityType="Self.Restraunt" />
           <EntitySet Name="Reviews" EntityType="Self.Review" />
-          <AssociationSet Name="FK_ReviewRestrauntID_RestrauntsRestrauntID" Association="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID">
+          <AssociationSet Name="FK_ReviewRestrauntID_RestrauntsRestrauntID"
+                          Association="Self.FK_ReviewRestrauntID_RestrauntsRestrauntID">
             <End Role="Restraunts" EntitySet="Restraunts" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
@@ -133,7 +150,8 @@ warning 6002: The table/view 'RevViewsDB.dbo.ViewTopThree' does not have a prima
             <PropertyRef Name="RestaurantName" />
           </Key>
           <Property Name="RestrauntID" Type="Int32" Nullable="false" />
-          <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="250" FixedLength="false"
+                    Unicode="true" />
           <Property Name="AvgRating" Type="Decimal" Precision="8" Scale="6" />
         </EntityType>
       </Schema>
@@ -141,7 +159,8 @@ warning 6002: The table/view 'RevViewsDB.dbo.ViewTopThree' does not have a prima
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="RevViewsDBModelStoreContainer" CdmEntityContainer="RevViewsDBEntities">
+        <EntityContainerMapping StorageEntityContainer="RevViewsDBModelStoreContainer"
+                                CdmEntityContainer="RevViewsDBEntities">
           <EntitySetMapping Name="Restraunts">
             <EntityTypeMapping TypeName="RevViewsDBModel.Restraunt">
               <MappingFragment StoreEntitySet="Restraunts">

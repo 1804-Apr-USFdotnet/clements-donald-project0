@@ -28,7 +28,7 @@ namespace RevViews
 
         public static List<int> ViewTop()
         {
-            var T3IDs = new List<int>();
+            var t3IDs = new List<int>();
             var t3 = new RevViewsDBEntities().ViewTopThrees.ToList();
             for (var index = 0; index < t3.Count; index++)
             {
@@ -36,10 +36,10 @@ namespace RevViews
 
                 Console.WriteLine("\t" + (index + 1) + ":   " + e.RestaurantName + " has rating of " +
                                   Math.Round((double) e.AvgRating, 1));
-                T3IDs.Add(e.RestrauntID);
+                t3IDs.Add(e.RestrauntID);
             }
 
-            return T3IDs;
+            return t3IDs;
         }
 
         public static Restraunt GetRestaurant(int id)

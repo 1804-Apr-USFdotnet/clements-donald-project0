@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using RevViews.BLL;
 using RevViews.Models;
@@ -11,14 +12,11 @@ namespace RevViews.DAL.Persistance.Repositories
         {
         }
 
-        public IEnumerable<Review> GetPagenatedReviews(int id, int pageIndex, int pageSize=3)
-        {
-            throw new System.NotImplementedException();
-        }
+        public RevViewsContext RevViewsContext => Context as RevViewsContext;
 
-        public RevViewsContext RevViewsContext
+        public IEnumerable<Review> GetPagenatedReviews(int id, int pageIndex, int pageSize = 3)
         {
-            get { return Context as RevViewsContext; }
+            throw new NotImplementedException();
         }
     }
 }

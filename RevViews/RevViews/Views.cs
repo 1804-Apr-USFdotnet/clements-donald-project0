@@ -158,7 +158,7 @@ namespace RevViews
             return 0;
         }
 
-        public static int Details(int id)
+        internal static int Details(int id)
         {
             Clear();
             var r = LittleWorker.GetRestaurant(id);
@@ -182,7 +182,7 @@ namespace RevViews
             return nav;
         }
 
-        public static void ListReviews(int id)
+        internal static void ListReviews(int id)
         {
             var r = LittleWorker.GetReviews(id);
             foreach (var review in r)

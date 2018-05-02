@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data.Entity;
+using System.Linq;
 using RevViews.BLL;
 using RevViews.Models;
 
@@ -13,10 +13,7 @@ namespace RevViews.DAL.Persistance.Repositories
         {
         }
 
-        public RevViewsContext RevViewsContext
-        {
-            get { return Context as RevViewsContext; }
-        }
+        public RevViewsContext RevViewsContext => Context as RevViewsContext;
 
         public IEnumerable<Restraunt> GetTopRated(int amount)
         {
@@ -24,10 +21,10 @@ namespace RevViews.DAL.Persistance.Repositories
             //var aveR = new RevViewsDBEntities().AveRating().OrderByDescending(o=>o.AvgRating).Take(amount).ToList();
             //var q = RevViewsContext.Restraunts.Where( o=> o.RestrauntID in aveR)
             //return
-           
+
             try
             {
-                List<ViewTopThree> t3 = new RevViewsDBEntities().ViewTopThrees.ToList();
+                var t3 = new RevViewsDBEntities().ViewTopThrees.ToList();
                 var a3 = t3.Select(o => o.RestrauntID).ToArray();
                 Console.WriteLine(a3.ToString());
                 Console.ReadLine();
@@ -38,7 +35,6 @@ namespace RevViews.DAL.Persistance.Repositories
                 Console.WriteLine(e);
                 throw;
             }
-  
         }
     }
 }
