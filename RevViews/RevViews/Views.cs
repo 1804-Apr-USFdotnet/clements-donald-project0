@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using static System.Console;
 
@@ -31,20 +32,20 @@ namespace RevViews
             switch (nav)
             {
                 case 1:
-                    Top3View();
+                    nav = Top3View();
                     break;
                 case 2:
-                    BrowseAllView();
+                    nav = BrowseAllView();
                     break;
                 case 3:
-                    SearchView();;
+                    nav = SearchView();;
                     break;
             }
 
             return nav;
         }
 
-        private static void SearchView()
+        private static int SearchView()
         {
             Clear();
             WriteLine("SearchView");
@@ -62,13 +63,16 @@ namespace RevViews
                 Console.WriteLine("    "+(index+1)+ ": " + e.RestaurantName);
             }
 
-            Nav(results.Count());
+            int nav = Nav(results.Count());
+
+            return nav;
         }
 
-        private static void BrowseAllView()
+        private static int BrowseAllView()
         {
+            int nav = 0;
             Clear();
-            var restraunts = LittleWorker.ShowAll();
+            var restraunts = LittleWorker.GetAllRestaurants();
             foreach (var restraunt in restraunts)
             {
                 Console.WriteLine(restraunt.RestrauntID +": "+ restraunt.RestaurantName);
@@ -76,20 +80,22 @@ namespace RevViews
                 
             
             
-            var nav = Nav();
+            nav = Nav(restraunts.Count());
+
+            return nav;
+
         }
 
-        private static void Top3View()
+        private static int Top3View()
         {
+            int nav = 0;
             Clear();
-            WriteLine("Displaying Top3View");
-            LittleWorker.ViewTop();
+            WriteLine("Top Thee");
+            WriteLine("  Results");
+            List<int> rank = LittleWorker.ViewTop();
 
-        }
+            nav = Nav(3);
 
-        public static int Nav()
-        {
-            int.TryParse(ReadLine(), out int nav);
             return nav;
         }
 
