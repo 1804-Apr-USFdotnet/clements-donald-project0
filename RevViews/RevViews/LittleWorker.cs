@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using RevViews.DAL.Persistance;
@@ -69,6 +70,29 @@ namespace RevViews
                 .Average(c => c.Rating),1);
             unitOfWork.Dispose();
             return result;
+        }
+
+        public static List<Restraunt> SortRestraunts(ref List<Restraunt> r, int i)
+        {
+            switch (i)
+            {
+                case 1:
+                     return r.OrderBy(o => o.RestaurantName).ToList();
+                    break;
+                case 2:
+                    return r.OrderByDescending(o => o.RestaurantName).ToList();
+                    break;
+                case 3:
+                    return r.OrderBy(o => Rating(o.RestrauntID)).ToList();
+                    break;
+                case 4:
+                    return r.OrderByDescending(o => Rating(o.RestrauntID)).ToList();
+                    break;
+                default:
+                    break;
+            }
+
+            return r;
         }
 
     }
