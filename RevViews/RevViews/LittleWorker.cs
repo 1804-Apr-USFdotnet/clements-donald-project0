@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using RevViews.DAL.Persistance;
 using RevViews.Models;
 
@@ -36,7 +37,7 @@ namespace RevViews
             {
                 var e = t3[index];
 
-                Console.WriteLine((index+1) + ":" + e.RestaurantName + " has rating of " + Math.Round((double)e.AvgRating, 1));
+                Console.WriteLine("\t"+(index+1) + ":   " + e.RestaurantName + " has rating of " + Math.Round((double)e.AvgRating, 1));
                 T3IDs.Add(e.RestrauntID);
             }
 
@@ -44,12 +45,30 @@ namespace RevViews
 
         }
 
-        public static Restraunt GetRestraunt(int id)
+        public static Restraunt GetRestaurant(int id)
         {
             UnitOfWork unitOfWork = new UnitOfWork(new RevViewsContext());
             Restraunt results = unitOfWork.Restaurants.Get(id);
             unitOfWork.Dispose();
             return results;
+        }
+
+        public static IEnumerable<Review> GetReviews(int id)
+        {
+            UnitOfWork unitOfWork = new UnitOfWork(new RevViewsContext());
+            var results = unitOfWork.Reviews.GetAll().Where(o => o.RestrauntID == id);
+            unitOfWork.Dispose();
+            return results;
+        }
+
+        public static double Rating(int id)
+        {
+            UnitOfWork unitOfWork = new UnitOfWork(new RevViewsContext());
+            double result = Math.Round (unitOfWork.Reviews.GetAll()
+                .Where(c => c.RestrauntID == id)
+                .Average(c => c.Rating),1);
+            unitOfWork.Dispose();
+            return result;
         }
 
     }

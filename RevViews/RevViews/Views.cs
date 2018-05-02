@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RevViews.Models;
 using static System.Console;
 
 namespace RevViews
@@ -47,6 +48,9 @@ namespace RevViews
 
         private static int SearchView()
         {
+            int nav;
+            do
+            { 
             Clear();
             WriteLine("SearchView");
             Write("Enter Search: ");
@@ -56,21 +60,32 @@ namespace RevViews
             WriteLine("SearchView");
             WriteLine("  Results");
 
+            List<int> trackID = new List<int>();
             for (var index = 0; index < results.Count(); index++)
             {
                 var e = results[index];
 
                 Console.WriteLine("    "+(index+1)+ ": " + e.RestaurantName);
+                trackID.Add(e.RestrauntID);
             }
 
-            int nav = Nav(results.Count());
+            nav = Nav(results.Count());
 
+            if (nav>0)
+            {
+                nav = Details(trackID[nav - 1]);
+            }
+        } while (nav > 0);
             return nav;
         }
 
         private static int BrowseAllView()
         {
             int nav = 0;
+            do
+            {
+                
+
             Clear();
             var restraunts = LittleWorker.GetAllRestaurants();
             foreach (var restraunt in restraunts)
@@ -81,7 +96,12 @@ namespace RevViews
             
             
             nav = Nav(restraunts.Count());
+            if (nav>0)
+            {
+                nav = Details(nav);
+            }
 
+            } while (nav > 0);
             return nav;
 
         }
@@ -89,6 +109,8 @@ namespace RevViews
         private static int Top3View()
         {
             int nav = 0;
+            do
+            {
             Clear();
             WriteLine("Top Thee");
             WriteLine("  Results");
@@ -96,6 +118,10 @@ namespace RevViews
 
             nav = Nav(3);
 
+            if (nav > 0)
+                nav = Details(rank[nav-1]);
+
+            } while (nav > 0);
             return nav;
         }
 
@@ -118,5 +144,46 @@ namespace RevViews
             } while (!(nav <= upperLimit && nav >= -1));
             return 0;
         }
+
+        public static int Details(int id)
+        {
+            Clear();
+            var r = LittleWorker.GetRestaurant(id);
+            WriteLine("Details:");
+            WriteLine("\tName:\t\t" + r.RestaurantName);
+            WriteLine("\tLocation:\t" + r.AddressLineOne);
+            WriteLine("\t \t \t" + r.City + " " + r.StateCode + " " + r.PostalCode);
+            WriteLine();
+            WriteLine("\tPhone:\t\t" + r.Phone);
+            WriteLine("\tWebsite:\t"+ r.Website);
+            WriteLine("\tRating:\t\t" + LittleWorker.Rating(id));
+            WriteLine();
+            WriteLine("Enter 1 to see reviews, -1 to exit app, or 0 to return to the main menu.");
+            int nav = Nav(1);
+            if (nav == 1)
+            {
+                ListReviews(id);
+                ReadLine();
+            }
+
+            return nav;
+
+        }
+        public static void ListReviews(int id)
+        {
+            var r = LittleWorker.GetReviews(id);
+
+            foreach (var review in r)
+            {
+                Console.WriteLine("Username:\t"+ review.Username);
+                Console.WriteLine("Rating:\t" + review.Rating);
+                Console.WriteLine("Headline:\t" + review.Headline);
+                Console.WriteLine("Review:\t" + review.Body);
+                WriteLine();
+
+            }
+        }
     }
+
+
 }
