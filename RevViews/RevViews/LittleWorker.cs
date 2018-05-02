@@ -10,6 +10,7 @@ using RevViews.Models;
 namespace RevViews
 
 {
+    
     public static class LittleWorker
     {
         static Logger log = LogManager.GetCurrentClassLogger();
@@ -99,24 +100,43 @@ namespace RevViews
 
         public static void ToJSON()
         {
-            Console.WriteLine("Begin JSON Demo");
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Restraunt));
-            var r = GetAllRestaurants();
-            foreach (var Restraunt in r)
+            //Console.WriteLine("Begin JSON Demo");
+            //MemoryStream stream1 = new MemoryStream();
+            //DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Restraunt));
+            //StreamReader sr = new StreamReader(stream1);
+            var r = GetAllRestaurants().Select(o => new
             {
-                try
-                {
-                    ser.WriteObject(stream1, Restraunt);
-                }
-                catch (Exception e)
-                {
-                    log.Error(e, "");
-                }
-            }
-            Console.WriteLine("End JSON Demo");
-            Console.ReadLine();
+                RestrauntID = o.RestrauntID,
+                RestaurantName = o.RestaurantName,
+                AddressLineOne = o.AddressLineOne,
+                City = o.City,
+                StateCode = o.StateCode,
+                PostalCode = o.PostalCode,
+                Phone = o.Phone,
+                Website = o.Website
+            });
 
+            //try
+            //    {
+            //        ser.WriteObject(stream1, r);
+            //        stream1.Position = 0;
+
+            //        Console.Write("JSON form of object: ");
+            //        Console.WriteLine(sr.ReadToEnd());
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        log.Error(e.Message);
+            //    }
+
+
+            //Console.WriteLine("End JSON Demo");
+            //Console.ReadLine();
+            //string Serialize(
+            //    object obj
+            //);
+
+            //Console.WriteLine(Serialize(r));
         }
     }
 }

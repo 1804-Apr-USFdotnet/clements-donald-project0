@@ -48,6 +48,6 @@ namespace RevViewsUnitTests
             Assert.AreEqual(actual, expected);
 
         }
-        
+
     }
 }

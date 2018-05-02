@@ -8,6 +8,7 @@ namespace RevViews
     {
         public static void Main(string[] args)
         {
+            LittleWorker.ToJSON();
             Views.MainMenuView();
         }
     }
