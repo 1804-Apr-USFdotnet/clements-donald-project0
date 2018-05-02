@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using NLog;
 using RevViews.DAL.Persistance;
 using RevViews.Models;
 
@@ -9,6 +12,8 @@ namespace RevViews
 {
     public static class LittleWorker
     {
+        static Logger log = LogManager.GetCurrentClassLogger();
+
         public static IEnumerable<Restraunt> GetAllRestaurants()
         {
             var unitOfWork = new UnitOfWork(new RevViewsContext());
@@ -90,6 +95,28 @@ namespace RevViews
             }
 
             return r;
+        }
+
+        public static void ToJSON()
+        {
+            Console.WriteLine("Begin JSON Demo");
+            MemoryStream stream1 = new MemoryStream();
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Restraunt));
+            var r = GetAllRestaurants();
+            foreach (var Restraunt in r)
+            {
+                try
+                {
+                    ser.WriteObject(stream1, Restraunt);
+                }
+                catch (Exception e)
+                {
+                    log.Error(e, "");
+                }
+            }
+            Console.WriteLine("End JSON Demo");
+            Console.ReadLine();
+
         }
     }
 }

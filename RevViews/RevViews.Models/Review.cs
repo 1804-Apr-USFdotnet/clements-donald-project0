@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+
 namespace RevViews.Models
 {
     using System;
@@ -14,14 +16,22 @@ namespace RevViews.Models
     
     public partial class Review
     {
+        [DataMember]
         public int ReviewID { get; set; }
+        [DataMember]
         public int RestrauntID { get; set; }
+        [DataMember]
         public string Username { get; set; }
+        [DataMember]
         public int Rating { get; set; }
+        [DataMember]
         public string Headline { get; set; }
+        [DataMember]
         public string Body { get; set; }
+        [DataMember]
         public System.DateTime ReviewedOn { get; set; }
-    
+
+        [DataMember]
         public virtual Restraunt Restraunt { get; set; }
     }
 }

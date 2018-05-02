@@ -7,11 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
+
 namespace RevViews.Models
 {
     using System;
     using System.Collections.Generic;
     
+    [DataContract]
     public partial class Restraunt
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,16 +22,24 @@ namespace RevViews.Models
         {
             this.Reviews = new HashSet<Review>();
         }
-    
+
+        [DataMember]
         public int RestrauntID { get; set; }
+        [DataMember]
         public string RestaurantName { get; set; }
+        [DataMember]
         public string AddressLineOne { get; set; }
+        [DataMember]
         public string City { get; set; }
+        [DataMember]
         public string StateCode { get; set; }
+        [DataMember]
         public string PostalCode { get; set; }
+        [DataMember]
         public string Phone { get; set; }
+        [DataMember]
         public string Website { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
     }
